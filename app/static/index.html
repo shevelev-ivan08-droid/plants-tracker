@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои растения</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Мои растения</h1>
+            <div>
+                <span id="current-username">...</span>
+                <button id="logout-btn" class="btn btn-danger">Выйти</button>
+            </div>
+        </div>
+
+        <div id="global-error" class="message error hidden"></div>
+
+        <div class="controls">
+            <input type="text" id="search-input" placeholder="Поиск по названию...">
+            <select id="filter-favorite">
+                <option value="">Все растения</option>
+                <option value="true">Только избранные</option>
+            </select>
+            <select id="sort-select">
+                <option value="name">По названию</option>
+                <option value="last_watered_at">По дате полива</option>
+                <option value="interval">По интервалу</option>
+            </select>
+        </div>
+
+        <div id="loading" class="message loading">Загрузка...</div>
+        <div id="empty-state" class="message empty hidden">У вас пока нет растений. Добавьте первое!</div>
+        
+        <div id="plant-list" class="plant-list"></div>
+
+        <h2 class="mt-20">Добавить растение</h2>
+        <form id="add-plant-form" class="auth-container" style="max-width: 100%; margin-top: 20px;">
+            <div class="form-group">
+                <label>Название *</label>
+                <input type="text" name="name" required maxlength="100">
+            </div>
+            <div class="form-group">
+                <label>Вид (опционально)</label>
+                <input type="text" name="species" maxlength="100">
+            </div>
+            <div class="form-group">
+                <label>Интервал полива (дней) *</label>
+                <input type="number" name="watering_interval_days" required min="1" max="365" value="7">
+            </div>
+            <button type="submit" class="btn btn-full">Добавить</button>
+        </form>
+    </div>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
