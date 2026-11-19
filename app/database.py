@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, event
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 DATABASE_URL = "sqlite:///./app.db"
@@ -8,12 +8,16 @@ engine = create_engine(
     connect_args={"check_same_thread": False},
 )
 
-SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
+@event.listens_for(engine, "connect")
+def _fk_pragma(dbapi_conn, _):
+    cur = dbapi_conn.cursor()
+    cur.execute("PRAGMA foreign_keys=ON")
+    cur.close()
 
+SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 
 class Base(DeclarativeBase):
     pass
-
 
 def get_db():
     db = SessionLocal()

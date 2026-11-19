@@ -1,0 +1,4 @@
+import os
+
+SECRET_KEY = os.getenv("SECRET_KEY", "169ef70dcda1163e9547034a3ba9f2345159bff76e886cb6f4778324b07ab9d9")
+SESSION_COOKIE = "session"
